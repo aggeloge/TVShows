@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/tvShowItem"
+        android:layout_width="wrap_content"
+        android:layout_height="244dp"
+        />
+
+    <TextView
+        android:id="@+id/placeholderShow"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:textSize="14sp"
+        android:background="#D81B60"
+        android:layout_below="@id/tvShowItem"
+        android:textColor="@android:color/white"
+        android:layout_alignLeft="@+id/tvShowItem"
+        android:layout_alignRight="@+id/tvShowItem"
+        android:padding="4dp"/>
+
+    <TableRow
+        android:id="@+id/hr"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#FFF"
+        android:layout_below="@id/placeholderShow"
+        android:layout_alignLeft="@+id/placeholderShow"
+        android:layout_alignRight="@+id/placeholderShow"/>
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:background="#D81B60"-->
+        <!--android:layout_below="@id/hr"-->
+        <!--android:layout_alignLeft="@+id/hr"-->
+        <!--android:layout_alignRight="@+id/hr"-->
+        <!--android:padding="6dp">-->
+        <!--<ImageView-->
+            <!--android:id="@+id/favorite"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--</RelativeLayout>-->
+
+</RelativeLayout>

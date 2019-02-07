@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ShowName">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="15dp">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/info">
+
+                <TextView
+                    android:id="@+id/movieTile"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="6dp"/>
+
+                <TextView
+                    android:id="@+id/showType"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/movieTile"
+                    android:layout_marginLeft="6dp"/>
+
+                <TextView
+                    android:id="@+id/movieSeason"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/movieTile"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/showType"/>
+
+                <TextView
+                    android:id="@+id/movieEp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_marginTop="1dp"
+                    android:layout_below="@id/movieTile"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/movieSeason"/>
+
+                <ImageView
+                    android:id="@+id/avatarImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="290dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_below="@id/movieSeason"
+                    android:layout_marginLeft="7dp" />
+
+                <!--<TextView-->
+                    <!--android:id="@+id/rating"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:layout_marginTop="3dp"-->
+                    <!--android:layout_below="@id/avatarImageView" />-->
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/avatarImageView"
+                    android:layout_alignLeft="@+id/avatarImageView"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="20dp"
+                    android:numStars="10"
+                    android:stepSize="0.01"
+                    android:isIndicator="true"
+                    android:progressTint="@android:color/holo_orange_light"
+                    style="?android:attr/ratingBarStyleSmall"/>
+
+                <TextView
+                    android:id="@+id/episodeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/movieSeason"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/avatarImageView" />
+
+                <TextView
+                    android:id="@+id/summary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_below="@id/episodeTitle"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/avatarImageView" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_below="@id/info"
+                android:layout_marginBottom="35dp"
+                android:layout_marginTop="20dp">
+                <Button
+                    android:id="@+id/buttonShowEpisodes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Episodes"
+                    android:background="#ec407a"/>
+
+                <Button
+                    android:id="@+id/buttonShowCast"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cast"
+                    android:layout_marginLeft="28dp"
+                    android:layout_toRightOf="@+id/buttonShowEpisodes"
+                    android:background="#ec407a"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+</RelativeLayout>

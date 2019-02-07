@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp">
+
+    <TextView
+        android:id="@+id/episodeNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginBottom="10dp"
+        android:textColor="#DAA520"
+        />
+
+    <ImageView
+        android:id="@+id/avatarEpisodeImage"
+        android:layout_width="wrap_content"
+        android:layout_height="92dp"
+        android:layout_below="@id/episodeNumber"/>
+
+    <TextView
+        android:id="@+id/episodeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#FFD700"
+        android:layout_marginBottom="2dp"
+        android:layout_toRightOf="@+id/avatarEpisodeImage"
+        android:layout_marginLeft="13dp"
+        />
+
+    <TextView
+        android:id="@+id/epSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="1dp"
+        android:textColor="@android:color/white"
+        android:layout_below="@id/episodeName"
+        android:layout_toRightOf="@+id/avatarEpisodeImage"
+        />
+
+    <!--<TableRow-->
+        <!--android:id="@+id/hrSeason"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="#FFF"-->
+        <!--android:layout_below="@id/epShowItem"-->
+        <!--android:layout_marginTop="35dp" />-->
+
+</RelativeLayout>
