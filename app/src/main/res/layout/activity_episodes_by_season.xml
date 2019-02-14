@@ -7,6 +7,12 @@
     tools:context=".EpisodesBySeason.EpisodesBySeason"
     android:layout_margin="16dp">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        />
+
     <TextView
         android:id="@+id/movieName"
         android:layout_height="wrap_content"
@@ -22,6 +28,28 @@
         android:textStyle="bold"
         android:layout_below="@id/movieName"
         android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:id="@+id/episodeAll"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_below="@id/movieName"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="6dp"
+        android:layout_toRightOf="@+id/sessionNumber"
+        />
+
+    <TextView
+        android:id="@+id/not_avaiable"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:layout_marginTop="27dp"
+        android:textColor="#FFD700"
+        android:layout_below="@id/sessionNumber"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/epSeason"

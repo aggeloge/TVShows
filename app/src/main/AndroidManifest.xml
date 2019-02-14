@@ -38,6 +38,12 @@
         <activity
             android:name=".ShowName"
             android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
 
         <activity android:name=".Episodes.Episodes">
@@ -47,11 +53,23 @@
         <activity
             android:name=".EpisodesBySeason.EpisodesBySeason"
             android:parentActivityName=".Episodes.Episodes">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
 
         <activity
             android:name=".Cast.Cast"
             android:parentActivityName=".Episodes.Episodes">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
     </application>
 

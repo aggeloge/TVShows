@@ -1,10 +1,15 @@
 package com.example.admin.tvshows.Activities;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +42,9 @@ public class Search extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        //searching intent
+        handleIntent(getIntent());
+
         Intent intent = getIntent();
         // get the search text from MainActivity
         String strSearchResult = "Search Result : ";
@@ -47,6 +55,38 @@ public class Search extends AppCompatActivity
 
         //calling the method to display the shows
         getSearch(term);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+            //use the query to search your data somehow
+            Intent searchActivity = new Intent(getApplicationContext(), Search.class);
+            searchActivity.putExtra("term", query);
+            startActivity(searchActivity);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
     }
 
     private void getSearch(String term) {

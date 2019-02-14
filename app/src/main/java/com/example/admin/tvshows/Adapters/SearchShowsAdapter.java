@@ -1,6 +1,7 @@
 package com.example.admin.tvshows.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.tvshows.R;
+import com.example.admin.tvshows.ShowName;
 import com.example.admin.tvshows.pogo.SearchListShows;
 
 import java.util.List;
@@ -49,6 +51,13 @@ public class SearchShowsAdapter extends RecyclerView.Adapter<SearchShowsAdapter.
             holder.nameShow.setText(getNameMovie);
         }
 
+        if(showsList.get(position).getShow().getRating().getAverage() != null){
+            String getRateMovie = showsList.get(position).getShow().getRating().getAverage();
+            holder.rateShow.setText(getRateMovie);
+        }else{
+            holder.rateShow.setText("-");
+        }
+
         if (showsList.get(position).getShow() != null && showsList.get(position).getShow().getImage() != null) {
             String imgUrl = showsList.get(position).getShow().getImage().getMedium();
             if(imgUrl!=null){
@@ -62,10 +71,6 @@ public class SearchShowsAdapter extends RecyclerView.Adapter<SearchShowsAdapter.
                     .load (R.drawable.movie)
                     .into (holder.image);
         }
-
-//        Glide.with (holder.itemView.getContext())
-//                .load (R.mipmap.favorite)
-//                .into (holder.favorite);
     }
 
     @Override
@@ -81,30 +86,35 @@ public class SearchShowsAdapter extends RecyclerView.Adapter<SearchShowsAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView image;
         TextView nameShow;
-        //ImageView favorite;
+        TextView rateShow;
+        String imageUrl = null;
 
         ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             image = itemView.findViewById(R.id.tvShowItem);
             nameShow = itemView.findViewById(R.id.placeholderShow);
-            //favorite = itemView.findViewById(R.id.favorite);
+            rateShow = itemView.findViewById(R.id.rateShow);
         }
 
         @Override
         public void onClick(View view) {
-//            Intent i = new Intent(view.getContext(), ShowName.class);
-//            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            i.putExtra("showMovieName", showsList.get(getLayoutPosition()).getShow().getName());
-//            i.putExtra("showEpisodeName", showsList.get(getLayoutPosition()).getName());
-//            i.putExtra("showImage", showsList.get(getLayoutPosition()).getShow().getImage().getMedium());
-//            i.putExtra("numSession", showsList.get(getLayoutPosition()).getSeason());
-//            i.putExtra("numEp", showsList.get(getLayoutPosition()).getNumber());
-//            i.putExtra("showType", showsList.get(getLayoutPosition()).getShow().getType());
-//            i.putExtra("summary", showsList.get(getLayoutPosition()).getShow().getSummary());
-//            i.putExtra("idShow", showsList.get(getLayoutPosition()).getShow().getId());
-//            i.putExtra("averageShow", showsList.get(getLayoutPosition()).getShow().getRating().getAverage());
-//            view.getContext().startActivity(i);
+            Intent i = new Intent(view.getContext(), ShowName.class);
+
+            if (showsList.get(getLayoutPosition()).getShow() != null && showsList.get(getLayoutPosition()).getShow().getImage() != null) {
+                if (showsList.get(getLayoutPosition()).getShow().getImage().getMedium() != null) {
+                    imageUrl = showsList.get(getLayoutPosition()).getShow().getImage().getMedium();
+                }
+            }
+
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra("showMovieName", showsList.get(getLayoutPosition()).getShow().getName());
+            i.putExtra("showImage", imageUrl);
+            i.putExtra("showType", showsList.get(getLayoutPosition()).getShow().getType());
+            i.putExtra("summary", showsList.get(getLayoutPosition()).getShow().getSummary());
+            i.putExtra("idShow", showsList.get(getLayoutPosition()).getShow().getId());
+            i.putExtra("averageShow", showsList.get(getLayoutPosition()).getShow().getRating().getAverage());
+            view.getContext().startActivity(i);
         }
     }
 

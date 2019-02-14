@@ -1,10 +1,14 @@
 package com.example.admin.tvshows;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +17,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.admin.tvshows.Activities.Search;
 import com.example.admin.tvshows.Cast.Cast;
 import com.example.admin.tvshows.EpisodesBySeason.EpisodesBySeason;
 
@@ -29,6 +34,9 @@ public class ShowName extends AppCompatActivity {
         // get the text from MainActivity
         Intent intent = getIntent();
 
+        //searching intent
+        handleIntent(getIntent());
+
         // set the name of the episode
         final String showMovieName= intent.getExtras().getString("showMovieName");
         TextView textViewMovie = (TextView) findViewById(R.id.movieTile);
@@ -40,33 +48,41 @@ public class ShowName extends AppCompatActivity {
         typeMov.setText(typeOfMovie);
 
         // set the average
-        String average = intent.getExtras().getString("averageShow");
-        //TextView avgMov = (TextView) findViewById(R.id.rating);
-        //avgMov.setText(average);
-        ratingBar=(RatingBar)findViewById(R.id.ratingBar);
-//        ratingBar.setRating(Float.parseFloat(average));
-//        ratingBar = ((RatingBar) findViewById(R.id.ratingBar));
-        ratingBar.setRating(7);
+        if(intent.getExtras().getString("averageShow") != null){
+            String average = intent.getExtras().getString("averageShow");
+            ratingBar=(RatingBar)findViewById(R.id.ratingBar);
+            Float ratingValue = Float.parseFloat(average);
+            //float ratingValue = 3.5f;
+            ratingBar.setRating(ratingValue);
+        }
 
-        // set the season number
-        String strSeason = "Season : ";
-        String numSession = strSeason + intent.getExtras().getString("numSession") + " | ";
-        TextView textSeason = (TextView) findViewById(R.id.movieSeason);
-        textSeason.setText(numSession);
-
-        final String numberOfSession = intent.getExtras().getString("numSession");
+        final String numberOfSession;
+        if(intent.getExtras().containsKey("numSession")){
+            // set the season number
+            String strSeason = "Season : ";
+            String numSession = strSeason + intent.getExtras().getString("numSession") + " | ";
+            TextView textSeason = (TextView) findViewById(R.id.movieSeason);
+            textSeason.setText(numSession);
+            numberOfSession = intent.getExtras().getString("numSession");
+        }else{
+            numberOfSession = "-";
+        }
 
         // set the number of the episode
-        String strNumberEp = "Episode : ";
-        String numEp = strNumberEp + intent.getExtras().getString("numEp");
-        TextView textEp = (TextView) findViewById(R.id.movieEp);
-        textEp.setText(numEp);
+        if(intent.getExtras().containsKey("numEp")){
+            String strNumberEp = "Episode : ";
+            String numEp = strNumberEp + intent.getExtras().getString("numEp");
+            TextView textEp = (TextView) findViewById(R.id.movieEp);
+            textEp.setText(numEp);
+        }
 
         // set the name of the episode
-        String strEp = "Episode : ";
-        String showEpName= strEp + intent.getExtras().getString("showEpisodeName");
-        TextView textViewEp = (TextView) findViewById(R.id.episodeTitle);
-        textViewEp.setText(showEpName);
+        if(intent.getExtras().containsKey("showEpisodeName")){
+            String strEp = "Episode : ";
+            String showEpName= strEp + intent.getExtras().getString("showEpisodeName");
+            TextView textViewEp = (TextView) findViewById(R.id.episodeTitle);
+            textViewEp.setText(showEpName);
+        }
 
         // set the summary of episode
         String showSummary = stripHtml(intent.getExtras().getString("summary"));
@@ -75,9 +91,14 @@ public class ShowName extends AppCompatActivity {
 
         // set the image of the movie
         String imgUrl= intent.getExtras().getString("showImage");
-        String httpsImgUrl = imgUrl.replace("http", "https");
         ImageView myImg=(ImageView)findViewById(R.id.avatarImageView);
-        Glide.with(this).load(httpsImgUrl).into(myImg);
+        if(imgUrl != null){
+            String httpsImgUrl = imgUrl.replace("http", "https");
+            Glide.with(this).load(httpsImgUrl).into(myImg);
+        }else{
+            Glide.with(this).load(R.drawable.movie).into(myImg);
+        }
+
 
         //get id of show
         final String showID = intent.getExtras().getString("idShow");
@@ -112,6 +133,38 @@ public class ShowName extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+
+            //use the query to search your data somehow
+            Intent searchActivity = new Intent(getApplicationContext(), Search.class);
+            searchActivity.putExtra("term", query);
+            startActivity(searchActivity);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        return true;
+    }
+
     public String stripHtml(String html) {
         return Html.fromHtml(html).toString();
     }
@@ -125,9 +178,5 @@ public class ShowName extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
     }
 }

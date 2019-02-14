@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.admin.tvshows.pogo.PopularTvShows;
@@ -43,9 +44,20 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ViewHolder> 
 
     // binds the data to the TextView in each cell
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String getNameMovie = showsList.get(position).getName();
-        holder.nameShow.setText(getNameMovie);
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        if(showsList.get(position).getShow().getName() != null){
+            String getNameMovie = showsList.get(position).getShow().getName();
+            holder.nameShow.setText(getNameMovie);
+        }else{
+            holder.nameShow.setText("-");
+        }
+
+        if(showsList.get(position).getShow().getRating().getAverage() != null){
+            String getRateMovie = showsList.get(position).getShow().getRating().getAverage();
+            holder.rateShow.setText(getRateMovie);
+        }else{
+            holder.rateShow.setText("-");
+        }
 
         if (showsList.get(position).getShow() != null && showsList.get(position).getShow().getImage() != null) {
             String imgUrl = showsList.get(position).getShow().getImage().getMedium();
@@ -55,11 +67,25 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ViewHolder> 
                         .load (replacedImgUrl)
                         .into (holder.image);
             }
+        }else{
+            Glide.with (holder.itemView.getContext())
+                    .load (R.drawable.movie)
+                    .into (holder.image);
         }
 
-//        Glide.with (holder.itemView.getContext())
-//                .load (R.mipmap.favorite)
-//                .into (holder.favorite);
+        holder.favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), position + ":" , Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.rate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), position + ":" , Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -75,14 +101,18 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView image;
         TextView nameShow;
-        //ImageView favorite;
+        TextView rateShow;
+        ImageView favorite;
+        ImageView rate;
 
         ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             image = itemView.findViewById(R.id.tvShowItem);
             nameShow = itemView.findViewById(R.id.placeholderShow);
-            //favorite = itemView.findViewById(R.id.favorite);
+            rateShow = itemView.findViewById(R.id.rateShow);
+            favorite = itemView.findViewById(R.id.favorite);
+            rate = itemView.findViewById(R.id.star);
         }
 
         @Override
@@ -101,5 +131,4 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ViewHolder> 
             view.getContext().startActivity(i);
         }
     }
-
 }

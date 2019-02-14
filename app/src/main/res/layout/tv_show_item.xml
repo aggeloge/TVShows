@@ -8,20 +8,21 @@
     <ImageView
         android:id="@+id/tvShowItem"
         android:layout_width="wrap_content"
-        android:layout_height="244dp"
-        />
+        android:layout_height="244dp" />
 
     <TextView
         android:id="@+id/placeholderShow"
         android:layout_width="fill_parent"
-        android:layout_height="48dp"
+        android:layout_height="45dp"
         android:textSize="14sp"
         android:background="#D81B60"
         android:layout_below="@id/tvShowItem"
         android:textColor="@android:color/white"
         android:layout_alignLeft="@+id/tvShowItem"
         android:layout_alignRight="@+id/tvShowItem"
-        android:padding="4dp"/>
+        android:padding="4dp"
+        android:includeFontPadding="false"
+        android:layout_marginTop="-12dp"/>
 
     <TableRow
         android:id="@+id/hr"
@@ -32,18 +33,44 @@
         android:layout_alignLeft="@+id/placeholderShow"
         android:layout_alignRight="@+id/placeholderShow"/>
 
-    <!--<RelativeLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:background="#D81B60"-->
-        <!--android:layout_below="@id/hr"-->
-        <!--android:layout_alignLeft="@+id/hr"-->
-        <!--android:layout_alignRight="@+id/hr"-->
-        <!--android:padding="6dp">-->
-        <!--<ImageView-->
-            <!--android:id="@+id/favorite"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content" />-->
-    <!--</RelativeLayout>-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="28dp"
+        android:background="#D81B60"
+        android:layout_below="@id/hr"
+        android:layout_alignLeft="@+id/hr"
+        android:layout_alignRight="@+id/hr"
+        android:layout_centerHorizontal="true"
+        android:padding="6dp"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/favorite"
+            android:src="@drawable/ic_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity = "center"/>
+
+        <ImageView
+            android:id="@+id/star"
+            android:src="@drawable/ic_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/favorite"
+            android:layout_marginLeft="40dp"
+            android:layout_gravity = "center"
+            />
+
+        <TextView
+            android:id="@+id/rateShow"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#C6C6C6"
+            android:layout_toRightOf="@+id/star"
+            android:layout_marginLeft="1dp"
+            android:textStyle="bold"
+            android:layout_gravity = "center"
+            android:layout_marginTop="-2dp" />
+    </LinearLayout>
 
 </RelativeLayout>

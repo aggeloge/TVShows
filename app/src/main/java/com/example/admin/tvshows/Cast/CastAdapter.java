@@ -61,6 +61,10 @@ public class CastAdapter extends RecyclerView.Adapter<CastAdapter.ViewHolder> {
                         .load (replacedImgUrl)
                         .into (holder.image);
             }
+        }else{
+            Glide.with (holder.itemView.getContext())
+                    .load (R.drawable.movie)
+                    .into (holder.image);
         }
     }
 
